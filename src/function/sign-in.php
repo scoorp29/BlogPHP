@@ -42,6 +42,6 @@ if ($isPasswordCorrect == true) {
     $_SESSION['alerte_sign_in'] = "You are successfully logged!";
     header("Location:/index.php");
 } else {
-    $_SESSION['alerte_sign_in_error'] = "Wrong username or password !";
+    $_SESSION['alerte_sign_in_error'] = "Wrong username or password";
     header("Location:/sign-in.php");
 }
