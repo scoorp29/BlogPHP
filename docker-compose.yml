@@ -1,0 +1,35 @@
+version: '3.3'
+
+services:
+    php:
+        build: ./
+        volumes:
+            - ./src:/var/www/code
+        depends_on:
+            - db
+    nginx:
+        image: nginx
+        ports:
+            - 8080:80
+        volumes:
+            - ./src:/var/www/code
+            - ./vhost:/etc/nginx/conf.d 
+        depends_on:
+            - php
+    db:
+        image: mariadb:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: ippsi_db
+            MYSQL_USER: ipssi
+            MYSQL_PASSWORD: ipssi
+        ports:
+            - "8889:3306"
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - "50000:80"
+        volumes:
+            - "/sessions"
+        links:
+            - db
