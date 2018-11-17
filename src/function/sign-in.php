@@ -35,17 +35,13 @@ $result = $req->fetch();
 // Comparison of the pass sent via the form with the data base
 $isPasswordCorrect = password_verify($_POST['password'], $result['password']);
 
-if (!isset($_SESSION['alerte_sign_in_error'])) {
-    if ($isPasswordCorrect == true) {
-        $_SESSION['id'] = $result['id'];
-        $_SESSION['username'] = $username;
-        $_SESSION['alerte_sign_in'] = "You are successfully logged!";
-        header("Location:/index.php");
-    }
+
+if ($isPasswordCorrect == true) {
+    $_SESSION['id'] = $result['id'];
+    $_SESSION['username'] = $username;
+    $_SESSION['alerte_sign_in'] = "You are successfully logged!";
+    header("Location:/index.php");
 } else {
     $_SESSION['alerte_sign_in_error'] = "Wrong username or password !";
     header("Location:/sign-in.php");
 }
-
-//Close connexion db
-$bdd = NULL;
